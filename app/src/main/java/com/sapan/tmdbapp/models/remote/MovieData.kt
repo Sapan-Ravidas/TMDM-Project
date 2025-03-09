@@ -1,4 +1,4 @@
-package com.sapan.tmdbapp.models
+package com.sapan.tmdbapp.models.remote
 
 import com.google.gson.annotations.SerializedName
 

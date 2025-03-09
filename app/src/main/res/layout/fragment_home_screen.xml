@@ -12,11 +12,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- now playing movies -->
+        <RelativeLayout
+            android:id="@+id/nowPlayingMovies"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Now-Playing"
+                android:textSize="20sp"
+                android:textStyle="italic|bold"
+                android:layout_gravity="center"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/nowPlayingMoviesView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- popular movies -->
+
         <RelativeLayout
             android:id="@+id/watchPopular"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:layout_width="wrap_content"

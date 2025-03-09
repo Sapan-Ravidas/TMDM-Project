@@ -3,6 +3,7 @@ package com.sapan.tmdbapp.di
 import android.content.Context
 import com.sapan.tmdbapp.lcoal.dao.MovieDao
 import com.sapan.tmdbapp.lcoal.db.MovieDatabase
+import com.sapan.tmdbapp.models.MovieDataConverter
 import com.sapan.tmdbapp.network.RemoteService
 import com.sapan.tmdbapp.respository.MovieRepository
 import com.squareup.moshi.Moshi
@@ -36,12 +37,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGenreRepository(
-        movieDao: MovieDao,
-        remoteService: RemoteService
-    ): MovieRepository {
-        return MovieRepository(movieDao, remoteService)
+    fun provideMovieDataConverter(): MovieDataConverter {
+        return MovieDataConverter()
     }
 
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(
+        @ApplicationContext context: Context,
+        movieDao: MovieDao,
+        remoteService: RemoteService,
+        dataConverter: MovieDataConverter
+    ): MovieRepository {
+        return MovieRepository(context, movieDao, remoteService, dataConverter)
+    }
 
 }

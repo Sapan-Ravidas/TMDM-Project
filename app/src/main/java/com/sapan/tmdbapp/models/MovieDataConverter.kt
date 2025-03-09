@@ -1,6 +1,7 @@
 package com.sapan.tmdbapp.models
 
 import com.sapan.tmdbapp.models.local.Movie
+import com.sapan.tmdbapp.models.remote.MovieListData
 
 
 class MovieDataConverter : DataConverter<List<Movie>, MovieListData> {

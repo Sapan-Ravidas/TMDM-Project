@@ -10,6 +10,7 @@ object ApiConstants {
     const val YOUTUBE_THUMBNAIL_URL_ENDPOINT = "/sddefault.jpg"
 
     const val URL_REPOSITORIES = "photos"
+    const val MOVIE_END_POINT = "movie"
     const val DISCOVER_MOVIE = "discover/movie"
     const val UPCOMING_MOVIE = "movie/upcoming"
     const val POPULAR_MOVIE = "movie/popular"

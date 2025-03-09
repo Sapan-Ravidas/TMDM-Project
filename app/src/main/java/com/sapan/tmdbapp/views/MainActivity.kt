@@ -3,7 +3,6 @@ package com.sapan.tmdbapp.views
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.sapan.tmdbapp.databinding.ActivityMainBinding
-import com.sapan.tmdbapp.views.home.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
