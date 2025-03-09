@@ -49,6 +49,22 @@ class HomeScreen private constructor(): Fragment() {
         observeGenres()
         observeMovies("now_playing", nowPlayingMovieAdapter)
         observeMovies("popular", popularMovieAdapter)
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshData()
+        }
+
+        observeBookmarkedMovies()
+    }
+
+    private fun observeBookmarkedMovies() {
+        lifecycleScope.launch {
+            bookmarkViewModel.getAllBookmarks().collectLatest { bookmarks ->
+                val bookmarkedIds = bookmarks.map { it.id }.toSet()
+                nowPlayingMovieAdapter.setBookmarkedMovieIds(bookmarkedIds)
+                popularMovieAdapter.setBookmarkedMovieIds(bookmarkedIds)
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -119,4 +135,27 @@ class HomeScreen private constructor(): Fragment() {
             .addToBackStack(null)
             .commit()
     }
+
+    private fun refreshData() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        lifecycleScope.launch {
+            try {
+                homeViewModel.getMoviesByCategory("now_playing").collectLatest { movies ->
+                    nowPlayingMovieAdapter.submitList(movies)
+                }
+                homeViewModel.getMoviesByCategory("popular").collectLatest { movies ->
+                    popularMovieAdapter.submitList(movies)
+                }
+                homeViewModel.genres.collectLatest { genres ->
+                    genreAdapter.submitList(genres)
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            } finally {
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+
+        }
+    }
+
 }

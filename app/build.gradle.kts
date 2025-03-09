@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,18 +7,38 @@ plugins {
     id("kotlin-kapt")
 }
 
+fun getLocalProperty(key: String): String? {
+    val properties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        properties.load(localPropertiesFile.inputStream())
+        return properties.getProperty(key)
+    }
+    return null
+}
+
+val apiKey: String? = getLocalProperty("API_KEY")
+val baseUrl: String? = getLocalProperty("BASE_URL")
+val basePosterPath: String? = getLocalProperty("BASE_POSTER_PATH")
+val baseBackdropPath: String? = getLocalProperty("BASE_BACKDROP_PATH")
+
 android {
     namespace = "com.sapan.tmdbapp"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.sapan.tmdbapp"
-        minSdk = 29
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"${apiKey}\"")
+        buildConfigField("String", "BASE_URL", "\"${baseUrl}\"")
+        buildConfigField("String", "BASE_POSTER_PATH", "\"${basePosterPath}\"")
+        buildConfigField("String", "BASE_BACKDROP_PATH", "\"${baseBackdropPath}\"")
     }
 
     buildTypes {
@@ -33,20 +55,18 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
 
     implementation(libs.car.ui.lib)
-    val room_version = "2.5.1"
-    val lifecycle_version = "2.6.1"
-    val paging_version = "3.1.1"
-
+    implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -62,18 +82,16 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
 
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
 
-    // Retrofit
+
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    // ViewModel
+
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.glide)
 
-// LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.coil)
 
@@ -84,11 +102,8 @@ dependencies {
 
     implementation (libs.androidx.paging.runtime.ktx)
 
-    //moshi
     implementation(libs.moshi.kotlin)
     implementation (libs.converter.moshi)
 
-    //coil
     implementation(libs.coil)
-   //  implementation("com.github.smarteist:autoimageslider:1.4.0")
 }

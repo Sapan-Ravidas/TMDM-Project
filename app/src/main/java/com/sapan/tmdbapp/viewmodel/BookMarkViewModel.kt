@@ -30,4 +30,5 @@ class BookmarkViewModel @Inject constructor(
             movieRepository.removeBookmark(movieId)
         }
     }
+
 }

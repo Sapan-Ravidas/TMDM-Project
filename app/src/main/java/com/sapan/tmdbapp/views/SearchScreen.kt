@@ -10,7 +10,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.FragmentSearchBinding
+import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.viewmodel.SearchViewModel
 import com.sapan.tmdbapp.views.adapter.BookmarkAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +52,25 @@ class SearchScreen : Fragment() {
 
     private fun setupRecyclerView() {
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        searchAdapter = BookmarkAdapter()
+        searchAdapter = BookmarkAdapter { bookmark ->
+            val movie = Movie(
+                id = bookmark.id,
+                backdropPath = bookmark.backdropPath,
+                genreIds = bookmark.genreIds,
+                originalLanguage = bookmark.originalLanguage,
+                originalTitle = bookmark.originalTitle,
+                overview = bookmark.overview,
+                popularity = bookmark.popularity,
+                posterPath = bookmark.posterPath,
+                releaseDate = bookmark.releaseDate,
+                title = bookmark.title,
+                voteAverage = bookmark.voteAverage,
+                voteCount = bookmark.voteCount,
+                video = bookmark.video,
+                category = "bookmark"
+            )
+            navigateToMovieDetails(movie)
+        }
         binding.searchRecyclerView.adapter = searchAdapter
     }
 
@@ -89,6 +109,14 @@ class SearchScreen : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToMovieDetails(movie: Movie) {
+        val fragment = MovieDetailsScreen.newInstance(movie)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

@@ -16,6 +16,8 @@ class MovieListAdapter(
     private val onItemClick: (Movie) -> Unit
 ) : ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
+    private var bookmarkedMovieIds: Set<Int> = emptySet()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = CardMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
@@ -23,14 +25,20 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(movie)
+        val isBookmarked = bookmarkedMovieIds.contains(movie.id)
+        holder.bind(movie, isBookmarked)
         holder.itemView.setOnClickListener {
             onItemClick(movie)
         }
     }
 
+    fun setBookmarkedMovieIds(bookmarkedIds: Set<Int>) {
+        this.bookmarkedMovieIds = bookmarkedIds
+        notifyDataSetChanged()
+    }
+
     inner class MovieViewHolder(private val binding: CardMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
+        fun bind(movie: Movie, isBookmarked: Boolean) {
             binding.moviePoster.load("${ApiConstants.BASE_POSTER_PATH}${movie.posterPath}") {
                 crossfade(true)
                 placeholder(R.drawable.img_paceholder)
@@ -38,7 +46,7 @@ class MovieListAdapter(
             }
 
             binding.rating.text = movie.voteAverage.toString()
-            val isBookmarked = false
+            updateBookmarkButton(isBookmarked)
             binding.bookmark.setOnClickListener {
                 val newBookmarkState = !isBookmarked
                 updateBookmarkButton(newBookmarkState)

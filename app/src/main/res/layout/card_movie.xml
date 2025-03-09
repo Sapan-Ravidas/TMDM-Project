@@ -33,16 +33,36 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_bookmark" />
 
-        <TextView
-            android:id="@+id/rating"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/white" />
+            >
+
+            <ImageView
+                android:id="@+id/cardStar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_rate"
+                app:tint="@color/gold"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@android:color/white"
+                android:layout_alignEnd="@id/cardStar"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

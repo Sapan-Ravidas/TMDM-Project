@@ -1,93 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backGround"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/backGround"
+        android:fillViewport="true">
 
-        <!-- now playing movies -->
-        <RelativeLayout
-            android:id="@+id/nowPlayingMovies"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Now-Playing"
-                android:textSize="20sp"
-                android:textStyle="italic|bold"
-                android:layout_gravity="center"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"/>
+            <!-- now playing movies -->
+            <RelativeLayout
+                android:id="@+id/nowPlayingMovies"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="vertical">
 
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Now-Playing"
+                    android:textSize="20sp"
+                    android:textStyle="italic|bold"
+                    android:layout_gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/nowPlayingMoviesView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
-        <!-- popular movies -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/nowPlayingMoviesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        <RelativeLayout
-            android:id="@+id/watchPopular"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="vertical"
-            >
+            <!-- popular movies -->
+            <RelativeLayout
+                android:id="@+id/watchPopular"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Popular"
-                android:textSize="20sp"
-                android:textStyle="italic|bold"
-                android:layout_gravity="center"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popular"
+                    android:textSize="20sp"
+                    android:textStyle="italic|bold"
+                    android:layout_gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"/>
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popularMoviesView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popularMoviesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
+            <!-- Genres -->
+            <RelativeLayout
+                android:id="@+id/watchByGenre"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
 
-        <!-- Genres -->
-        <RelativeLayout
-            android:id="@+id/watchByGenre"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="vertical"
-            android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genres"
+                    android:textSize="20sp"
+                    android:textStyle="italic|bold"
+                    android:layout_gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Genres"
-                android:textSize="20sp"
-                android:textStyle="italic|bold"
-                android:layout_gravity="center"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
-        </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/genreRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/genreRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

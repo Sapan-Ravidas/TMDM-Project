@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp">
 
-    <!-- Movie Poster -->
     <ImageView
         android:id="@+id/moviePoster"
         android:layout_width="120dp"
@@ -16,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!-- Movie Title -->
     <TextView
         android:id="@+id/movieTitle"
         android:layout_width="0dp"
@@ -30,19 +28,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Movie Title" />
 
-    <!-- Movie Rating -->
-    <TextView
-        android:id="@+id/movieRating"
+
+    <LinearLayout
+        android:id="@+id/ratingContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@id/moviePoster"
         app:layout_constraintTop_toBottomOf="@id/movieTitle"
-        tools:text="8.5" />
+        android:orientation="horizontal"
+        >
 
-    <!-- Movie Overview -->
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_rate"
+            app:tint="@color/gold"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/movieRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            tools:text="8.5" />
+
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/movieOverview"
         android:layout_width="0dp"
@@ -53,11 +69,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@id/moviePoster"
-        app:layout_constraintTop_toBottomOf="@id/movieRating"
+        app:layout_constraintTop_toBottomOf="@id/ratingContent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="This is a movie overview. It can be long, so we limit it to 3 lines." />
 
-    <!-- Movie Release Date -->
     <TextView
         android:id="@+id/movieReleaseDate"
         android:layout_width="wrap_content"

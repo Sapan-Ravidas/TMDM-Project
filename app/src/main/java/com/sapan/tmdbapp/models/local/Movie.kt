@@ -6,9 +6,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(tableName = "movies")
+@Entity(tableName = "movies", primaryKeys = ["id", "category"])
 data class Movie(
-    @PrimaryKey val id: Int,
+    val id: Int,
     val backdropPath: String,
     val genreIds: String,
     val originalLanguage: String,
