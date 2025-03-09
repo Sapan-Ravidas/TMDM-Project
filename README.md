@@ -19,8 +19,8 @@
 &nbsp;
 
 ### screenshots
-![Movie List](screenshots/movie_list.png)
-![BookMarks](screenshots/bookmark.png)
-![Details](screenshots/details.png)
-![Search](screenshots/search.png)
-![Cache](screenshots/cache.png)
+![Movie List](screenshots/movie_list.jpg)
+![BookMarks](screenshots/bookmark.jpg)
+![Details](screenshots/details.jpg)
+![Search](screenshots/search.jpg)
+![Cache](screenshots/cache.jpg)
