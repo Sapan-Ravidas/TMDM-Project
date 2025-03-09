@@ -42,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation(libs.car.ui.lib)
     val room_version = "2.5.1"
     val lifecycle_version = "2.6.1"
     val paging_version = "3.1.1"
@@ -63,8 +64,6 @@ dependencies {
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
-
-    kapt("androidx.room:room-compiler:$room_version")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
