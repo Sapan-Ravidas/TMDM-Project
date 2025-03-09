@@ -1,10 +1,10 @@
 package com.sapan.tmdbapp.di
 
 import android.content.Context
-import com.sapan.tmdbapp.lcoal.dao.GenreDao
-import com.sapan.tmdbapp.lcoal.db.GenreDatabase
+import com.sapan.tmdbapp.lcoal.dao.MovieDao
+import com.sapan.tmdbapp.lcoal.db.MovieDatabase
 import com.sapan.tmdbapp.network.RemoteService
-import com.sapan.tmdbapp.respository.GenreRepository
+import com.sapan.tmdbapp.respository.MovieRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -24,20 +24,23 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGenreDatabase(@ApplicationContext context: Context): GenreDatabase {
-        return GenreDatabase.getDatabase(context)
+    fun provideGenreDatabase(@ApplicationContext context: Context): MovieDatabase {
+        return MovieDatabase.getDatabase(context)
     }
 
     @Provides
     @Singleton
-    fun provideGenreDao(database: GenreDatabase): GenreDao {
-        return database.genreDao()
+    fun provideGenreDao(database: MovieDatabase): MovieDao {
+        return database.movieDao()
     }
 
     @Provides
     @Singleton
-    fun provideGenreRepository(genreDao: GenreDao, remoteService: RemoteService): GenreRepository {
-        return GenreRepository(genreDao, remoteService)
+    fun provideGenreRepository(
+        movieDao: MovieDao,
+        remoteService: RemoteService
+    ): MovieRepository {
+        return MovieRepository(movieDao, remoteService)
     }
 
 

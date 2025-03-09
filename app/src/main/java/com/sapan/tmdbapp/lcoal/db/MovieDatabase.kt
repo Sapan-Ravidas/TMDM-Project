@@ -4,23 +4,28 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sapan.tmdbapp.lcoal.dao.GenreDao
+import com.sapan.tmdbapp.lcoal.dao.MovieDao
 import com.sapan.tmdbapp.models.GenreData
+import com.sapan.tmdbapp.models.local.Movie
 
-@Database(entities = [GenreData::class], version = 1, exportSchema = false)
-abstract class GenreDatabase : RoomDatabase() {
+@Database(entities = [
+        GenreData::class,
+        Movie::class],
+    version = 1,
+    exportSchema = false)
+abstract class MovieDatabase : RoomDatabase() {
 
-    abstract fun genreDao(): GenreDao
+    abstract fun movieDao(): MovieDao
 
     companion object {
         @Volatile
-        private var INSTANCE: GenreDatabase? = null
+        private var INSTANCE: MovieDatabase? = null
 
-        fun getDatabase(context: Context): GenreDatabase {
+        fun getDatabase(context: Context): MovieDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    GenreDatabase::class.java,
+                    MovieDatabase::class.java,
                     "genre_database"
                 ).build()
                 INSTANCE = instance

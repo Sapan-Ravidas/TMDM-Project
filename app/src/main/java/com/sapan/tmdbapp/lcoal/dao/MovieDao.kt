@@ -4,10 +4,11 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.sapan.tmdbapp.models.GenreData
+import com.sapan.tmdbapp.models.local.Movie
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface GenreDao {
+interface MovieDao {
 
     @Upsert
     suspend fun upsetGenres(genres: List<GenreData>)
@@ -17,4 +18,16 @@ interface GenreDao {
 
     @Query("DELETE FROM genre_table")
     suspend fun deleteAllGenres()
+
+    @Upsert
+    suspend fun upsertMovies(movies: List<Movie>)
+
+    @Query("SELECT * FROM movies WHERE category = :category")
+    fun getMovies(category: String): Flow<List<Movie>>
+
+    @Query("DELETE FROM movies WHERE category = :category")
+    suspend fun deleteMovies(category: String)
+
+    @Query("DELETE FROM movies")
+    suspend fun deleteAllMovies()
 }

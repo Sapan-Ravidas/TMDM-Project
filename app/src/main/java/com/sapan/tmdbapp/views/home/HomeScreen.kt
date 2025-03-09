@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.FragmentHomeScreenBinding
-import com.sapan.tmdbapp.viewmodel.GenreViewModel
+import com.sapan.tmdbapp.viewmodel.HomeViewModel
 import com.sapan.tmdbapp.views.home.genre.GenreAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -22,8 +22,9 @@ class HomeScreen : Fragment() {
     private lateinit var _binding: FragmentHomeScreenBinding
     private val binding: FragmentHomeScreenBinding get() = _binding
 
-    private val viewModel: GenreViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var genreAdapter: GenreAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +51,14 @@ class HomeScreen : Fragment() {
         lifecycleScope.launch {
             viewModel.genres.collectLatest { genres ->
                 genreAdapter.submitList(genres)
+            }
+        }
+    }
+
+    private fun observeMovies(category: String) {
+        lifecycleScope.launch {
+            viewModel.getMoviesByCategory(category).collectLatest { movies ->
+                // movieAdapter.submitList(movies)
             }
         }
     }
