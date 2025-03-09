@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sapan.tmdbapp.databinding.GenreCardBinding
 import com.sapan.tmdbapp.models.GenreData
 
-class GenreAdapter(
-
-): ListAdapter<GenreData, GenreAdapter.GenreViewHolder>(GenreDiffCallback()) {
+class GenreAdapter: ListAdapter<GenreData, GenreAdapter.GenreViewHolder>(GenreDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         val binding = GenreCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)

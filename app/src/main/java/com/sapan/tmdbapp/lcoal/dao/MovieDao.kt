@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.sapan.tmdbapp.models.GenreData
+import com.sapan.tmdbapp.models.local.Bookmark
 import com.sapan.tmdbapp.models.local.Movie
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +20,9 @@ interface MovieDao {
     @Query("DELETE FROM genre_table")
     suspend fun deleteAllGenres()
 
+    /**
+     *
+     */
     @Upsert
     suspend fun upsertMovies(movies: List<Movie>)
 
@@ -30,4 +34,16 @@ interface MovieDao {
 
     @Query("DELETE FROM movies")
     suspend fun deleteAllMovies()
+
+    /**
+     *
+     */
+    @Upsert
+    suspend fun insertBookmark(bookmark: Bookmark)
+
+    @Query("DELETE FROM bookmarks WHERE id = :movieId")
+    suspend fun deleteBookmark(movieId: Int)
+
+    @Query("SELECT * FROM bookmarks")
+    fun getAllBookmarks(): Flow<List<Bookmark>>
 }

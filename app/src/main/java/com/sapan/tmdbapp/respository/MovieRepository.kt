@@ -5,6 +5,7 @@ import com.sapan.tmdbapp.lcoal.dao.MovieDao
 import com.sapan.tmdbapp.models.GenreData
 import com.sapan.tmdbapp.models.GenresResponse
 import com.sapan.tmdbapp.models.MovieDataConverter
+import com.sapan.tmdbapp.models.local.Bookmark
 import com.sapan.tmdbapp.models.remote.MovieListData
 import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.network.RemoteService
@@ -72,4 +73,31 @@ class MovieRepository(
     /**
      *
      */
+    suspend fun bookmarkMovie(movie: Movie) {
+        val bookmark = Bookmark(
+            id = movie.id,
+            backdropPath = movie.backdropPath,
+            genreIds = movie.genreIds,
+            originalLanguage = movie.originalLanguage,
+            originalTitle = movie.originalTitle,
+            overview = movie.overview,
+            popularity = movie.popularity,
+            posterPath = movie.posterPath,
+            releaseDate = movie.releaseDate,
+            title = movie.title,
+            voteAverage = movie.voteAverage,
+            voteCount = movie.voteCount,
+            video = movie.video
+        )
+        movieDao.insertBookmark(bookmark)
+    }
+
+    suspend fun removeBookmark(movieId: Int) {
+        movieDao.deleteBookmark(movieId)
+    }
+
+
+    fun getAllBookmarks(): Flow<List<Bookmark>> {
+        return movieDao.getAllBookmarks()
+    }
 }

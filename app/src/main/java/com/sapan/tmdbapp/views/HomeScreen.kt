@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeScreen : Fragment() {
+class HomeScreen private constructor(): Fragment() {
 
     private lateinit var _binding: FragmentHomeScreenBinding
     private val binding: FragmentHomeScreenBinding get() = _binding
