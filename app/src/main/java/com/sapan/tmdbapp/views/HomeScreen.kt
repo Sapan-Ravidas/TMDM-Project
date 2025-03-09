@@ -48,7 +48,9 @@ class HomeScreen private constructor(): Fragment() {
         setupRecyclerView()
         observeGenres()
         observeMovies("now_playing", nowPlayingMovieAdapter)
+        observeMovies("upcoming", upcomingMovieAdapter)
         observeMovies("popular", popularMovieAdapter)
+        observeMovies("top_rated", topRatedMovieAdapter)
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshData()
@@ -73,39 +75,36 @@ class HomeScreen private constructor(): Fragment() {
         binding.genreRecyclerView.adapter = genreAdapter
 
         binding.nowPlayingMoviesView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        nowPlayingMovieAdapter = MovieListAdapter(
-            onBookmarkClick = { movie, isBookmarked ->
-                lifecycleScope.launch {
-                    if (isBookmarked) {
-                        bookmarkViewModel.bookmarkMovie(movie)
-                    } else {
-                        bookmarkViewModel.removeBookmark(movie.id)
-                    }
-                }
-            },
-            onItemClick = { movie ->
-                navigateToMovieDetails(movie)
-            }
-        )
+        nowPlayingMovieAdapter = getAdapter()
         binding.nowPlayingMoviesView.adapter = nowPlayingMovieAdapter
 
+        binding.upComingMovieView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        upcomingMovieAdapter = getAdapter()
+        binding.upComingMovieView.adapter = upcomingMovieAdapter
+
         binding.popularMoviesView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        popularMovieAdapter = MovieListAdapter(
-            onBookmarkClick = { movie, isBookmarked ->
-                lifecycleScope.launch {
-                    if (isBookmarked) {
-                        bookmarkViewModel.bookmarkMovie(movie)
-                    } else {
-                        bookmarkViewModel.removeBookmark(movie.id)
-                    }
-                }
-            },
-            onItemClick = { movie ->
-                navigateToMovieDetails(movie)
-            }
-        )
+        popularMovieAdapter = getAdapter()
         binding.popularMoviesView.adapter = popularMovieAdapter
+
+        binding.topRatedMovieView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        topRatedMovieAdapter = getAdapter()
+        binding.topRatedMovieView.adapter = topRatedMovieAdapter
     }
+
+    private fun getAdapter() = MovieListAdapter(
+        onBookmarkClick = { movie, isBookmarked ->
+            lifecycleScope.launch {
+                if (isBookmarked) {
+                    bookmarkViewModel.bookmarkMovie(movie)
+                } else {
+                    bookmarkViewModel.removeBookmark(movie.id)
+                }
+            }
+        },
+        onItemClick = { movie ->
+            navigateToMovieDetails(movie)
+        }
+    )
 
     private fun observeGenres() {
         lifecycleScope.launch {

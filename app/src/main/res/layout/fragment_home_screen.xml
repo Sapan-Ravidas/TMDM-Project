@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backGround"
+    android:padding="10dp">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backGround"
         android:fillViewport="true">
 
         <LinearLayout
@@ -41,6 +42,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <!-- upcoming movies -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming"
+                    android:textSize="20sp"
+                    android:textStyle="italic|bold"
+                    android:layout_gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upComingMovieView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <!-- popular movies -->
             <RelativeLayout
                 android:id="@+id/watchPopular"
@@ -64,6 +88,30 @@
                 android:id="@+id/popularMoviesView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <!-- Top Rated movies -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Top Rated"
+                    android:textSize="20sp"
+                    android:textStyle="italic|bold"
+                    android:layout_gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/topRatedMovieView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
 
             <!-- Genres -->
             <RelativeLayout
