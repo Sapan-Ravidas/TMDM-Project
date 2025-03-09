@@ -12,9 +12,11 @@ import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.FragmentHomeScreenBinding
 import com.sapan.tmdbapp.viewmodel.GenreViewModel
 import com.sapan.tmdbapp.views.home.genre.GenreAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeScreen : Fragment() {
 
     private lateinit var _binding: FragmentHomeScreenBinding

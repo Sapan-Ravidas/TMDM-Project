@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt.android)
     id("kotlin-kapt")
 }
 
@@ -59,37 +59,36 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
 
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation(libs.androidx.room.ktx)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.glide)
 
 // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
-    implementation("io.coil-kt:coil:2.3.0")
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.coil)
 
-    val activity_version = "1.1.0"
-    implementation("androidx.activity:activity-ktx:$activity_version")
-    implementation("androidx.fragment:fragment-ktx:$activity_version")
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
 
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation (libs.logging.interceptor)
 
-    implementation ("androidx.paging:paging-runtime:$paging_version")
+    implementation (libs.androidx.paging.runtime.ktx)
 
     //moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation(libs.moshi.kotlin)
+    implementation (libs.converter.moshi)
 
     //coil
-    implementation("io.coil-kt:coil:2.3.0")
+    implementation(libs.coil)
    //  implementation("com.github.smarteist:autoimageslider:1.4.0")
 }

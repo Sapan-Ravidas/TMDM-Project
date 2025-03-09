@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.sapan.tmdbapp.databinding.ActivityMainBinding
 import com.sapan.tmdbapp.views.home.HomeScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     private val binding: ActivityMainBinding get() = _binding
