@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.FragmentHomeScreenBinding
+import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.viewmodel.BookmarkViewModel
 import com.sapan.tmdbapp.viewmodel.HomeViewModel
 import com.sapan.tmdbapp.views.adapter.GenreAdapter
@@ -55,27 +57,37 @@ class HomeScreen private constructor(): Fragment() {
         binding.genreRecyclerView.adapter = genreAdapter
 
         binding.nowPlayingMoviesView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        nowPlayingMovieAdapter = MovieListAdapter { movie, isBookmarked ->
-            lifecycleScope.launch {
-                if (isBookmarked) {
-                    bookmarkViewModel.bookmarkMovie(movie)
-                } else {
-                    bookmarkViewModel.removeBookmark(movie.id)
+        nowPlayingMovieAdapter = MovieListAdapter(
+            onBookmarkClick = { movie, isBookmarked ->
+                lifecycleScope.launch {
+                    if (isBookmarked) {
+                        bookmarkViewModel.bookmarkMovie(movie)
+                    } else {
+                        bookmarkViewModel.removeBookmark(movie.id)
+                    }
                 }
+            },
+            onItemClick = { movie ->
+                navigateToMovieDetails(movie)
             }
-        }
+        )
         binding.nowPlayingMoviesView.adapter = nowPlayingMovieAdapter
 
         binding.popularMoviesView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        popularMovieAdapter = MovieListAdapter { movie, isBookmarked ->
-            lifecycleScope.launch {
-                if (isBookmarked) {
-                    bookmarkViewModel.bookmarkMovie(movie)
-                } else {
-                    bookmarkViewModel.removeBookmark(movie.id)
+        popularMovieAdapter = MovieListAdapter(
+            onBookmarkClick = { movie, isBookmarked ->
+                lifecycleScope.launch {
+                    if (isBookmarked) {
+                        bookmarkViewModel.bookmarkMovie(movie)
+                    } else {
+                        bookmarkViewModel.removeBookmark(movie.id)
+                    }
                 }
+            },
+            onItemClick = { movie ->
+                navigateToMovieDetails(movie)
             }
-        }
+        )
         binding.popularMoviesView.adapter = popularMovieAdapter
     }
 
@@ -98,5 +110,13 @@ class HomeScreen private constructor(): Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = HomeScreen()
+    }
+
+    private fun navigateToMovieDetails(movie: Movie) {
+        val fragment = MovieDetailsScreen.newInstance(movie)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

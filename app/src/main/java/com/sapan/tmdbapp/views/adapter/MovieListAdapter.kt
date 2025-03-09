@@ -12,7 +12,8 @@ import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.network.ApiConstants
 
 class MovieListAdapter(
-    private val onBookmarkClick: (Movie, Boolean) -> Unit
+    private val onBookmarkClick: (Movie, Boolean) -> Unit,
+    private val onItemClick: (Movie) -> Unit
 ) : ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -23,6 +24,9 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
         holder.bind(movie)
+        holder.itemView.setOnClickListener {
+            onItemClick(movie)
+        }
     }
 
     inner class MovieViewHolder(private val binding: CardMovieBinding) : RecyclerView.ViewHolder(binding.root) {

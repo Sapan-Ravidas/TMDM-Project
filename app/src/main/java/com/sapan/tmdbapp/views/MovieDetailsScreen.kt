@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import coil.load
+import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.FragmentDetailsBinding
 import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.network.ApiConstants
@@ -36,6 +37,12 @@ class MovieDetailsScreen: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        movie = arguments?.getParcelable<Movie>(ARG_MOVIE) ?: throw IllegalArgumentException("Movie argument is required")
+        setupMovieDetails()
+
+        binding.shareButton.setOnClickListener {
+            shareMovie()
+        }
     }
 
     private fun setupMovieDetails() {
@@ -45,20 +52,20 @@ class MovieDetailsScreen: Fragment() {
             error(R.drawable.img_error)
         }
 
-        binding.posterImage.load("${ApiConstants.BASE_POSTER_PATH}${movie.posterPath}") {
+        binding.posterImage.load("${ApiConstants.BASE_POSTER_PATH}${movie?.posterPath}") {
             crossfade(true)
             placeholder(R.drawable.img_paceholder)
             error(R.drawable.img_error)
         }
 
-        binding.movieTitle.text = movie.title
-        binding.movieRating.text = movie.voteAverage.toString()
-        binding.movieOverview.text = movie.overview
+        binding.movieTitle.text = movie?.title
+        binding.rating.text = movie?.voteAverage.toString()
+        binding.overview.text = movie?.overview
     }
 
 
     private fun shareMovie() {
-        val shareText = "Check out this movie: ${movie.title}\nhttps://www.example.com/movie/${movie.id}"
+        val shareText = "Check out this movie: ${movie?.title}\nhttps://www.example.com/movie/${movie?.id}"
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, shareText)

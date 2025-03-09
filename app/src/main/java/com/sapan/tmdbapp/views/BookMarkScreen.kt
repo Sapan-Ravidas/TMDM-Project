@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.FragmentBookmarkBinding
+import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.viewmodel.BookmarkViewModel
 import com.sapan.tmdbapp.views.adapter.BookmarkAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +43,25 @@ class BookMarkScreen private constructor(): Fragment() {
 
     private fun setupRecyclerView() {
         binding.bookmarkRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        bookmarkAdapter = BookmarkAdapter()
+        bookmarkAdapter = BookmarkAdapter { bookmark ->
+            val movie = Movie(
+                id = bookmark.id,
+                backdropPath = bookmark.backdropPath,
+                genreIds = bookmark.genreIds,
+                originalLanguage = bookmark.originalLanguage,
+                originalTitle = bookmark.originalTitle,
+                overview = bookmark.overview,
+                popularity = bookmark.popularity,
+                posterPath = bookmark.posterPath,
+                releaseDate = bookmark.releaseDate,
+                title = bookmark.title,
+                voteAverage = bookmark.voteAverage,
+                voteCount = bookmark.voteCount,
+                video = bookmark.video,
+                category = "bookmark"
+            )
+            navigateToMovieDetails(movie)
+        }
         binding.bookmarkRecyclerView.adapter = bookmarkAdapter
     }
 
@@ -51,6 +71,14 @@ class BookMarkScreen private constructor(): Fragment() {
                 bookmarkAdapter.submitList(bookmarks)
             }
         }
+    }
+
+    private fun navigateToMovieDetails(movie: Movie) {
+        val fragment = MovieDetailsScreen.newInstance(movie)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

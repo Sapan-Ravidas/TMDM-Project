@@ -11,7 +11,9 @@ import com.sapan.tmdbapp.databinding.BookmarkItemBinding
 import com.sapan.tmdbapp.models.local.Bookmark
 import com.sapan.tmdbapp.network.ApiConstants
 
-class BookmarkAdapter: ListAdapter<Bookmark, BookmarkAdapter.BookmarkViewHolder>(BookmarkDiffCallback()) {
+class BookmarkAdapter(
+    private val onItemClick: (Bookmark) -> Unit
+): ListAdapter<Bookmark, BookmarkAdapter.BookmarkViewHolder>(BookmarkDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkViewHolder {
         val binding = BookmarkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,6 +23,9 @@ class BookmarkAdapter: ListAdapter<Bookmark, BookmarkAdapter.BookmarkViewHolder>
     override fun onBindViewHolder(holder: BookmarkViewHolder, position: Int) {
         val bookmark = getItem(position)
         holder.bind(bookmark)
+        holder.itemView.setOnClickListener {
+            onItemClick(bookmark)
+        }
     }
 
     inner class BookmarkViewHolder(private val binding: BookmarkItemBinding) : RecyclerView.ViewHolder(binding.root) {
