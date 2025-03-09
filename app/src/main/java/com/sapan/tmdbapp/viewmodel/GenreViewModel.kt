@@ -6,10 +6,11 @@ import com.sapan.tmdbapp.respository.GenreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
-class GenreViewModel(
-    private val genreRepository: GenreRepository
+class GenreViewModel @Inject constructor(
+     private val genreRepository: GenreRepository
 ): ViewModel() {
     val genres = genreRepository.getGenres()
         .stateIn(
