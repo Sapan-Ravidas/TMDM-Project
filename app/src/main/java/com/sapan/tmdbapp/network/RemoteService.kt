@@ -1,5 +1,7 @@
 package com.sapan.tmdbapp.network
 
+import android.os.Build
+import com.sapan.tmdbapp.BuildConfig
 import com.sapan.tmdbapp.models.GenresResponse
 import com.sapan.tmdbapp.models.remote.MovieListData
 import retrofit2.Response
@@ -11,19 +13,19 @@ interface RemoteService {
 
     @GET(ApiConstants.GENRE_MOVIE)
     suspend fun getGenre(
-        @Query("api_key") apiKey: String = ApiConstants.API_KEY
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ) : Response<GenresResponse>
 
     @GET("${ApiConstants.MOVIE_END_POINT}/{category}")
     suspend fun getMovies(
         @Path("category") category: String,
-        @Query("api_key") apiKey: String = ApiConstants.API_KEY
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ) : Response<MovieListData>
 
     @GET("search/movie")
     suspend fun searchMovies(
         @Query("query") query: String,
         @Query("page") page: Int = 1,
-        @Query("api_key") apiKey: String = ApiConstants.API_KEY
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Response<MovieListData>
 }

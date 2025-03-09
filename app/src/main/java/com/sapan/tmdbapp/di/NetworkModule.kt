@@ -1,5 +1,6 @@
 package com.sapan.tmdbapp.di
 
+import com.sapan.tmdbapp.BuildConfig
 import com.sapan.tmdbapp.network.ApiConstants
 import com.sapan.tmdbapp.network.RemoteService
 import dagger.Module
@@ -20,7 +21,7 @@ object NetworkModule {
 
     @Provides
     fun providesBaseUrl(): String {
-        return ApiConstants.BASE_URL
+        return BuildConfig.BASE_URL
     }
 
     @Provides

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import coil.load
+import com.sapan.tmdbapp.BuildConfig
 import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.FragmentDetailsBinding
 import com.sapan.tmdbapp.models.local.Movie
@@ -46,13 +47,13 @@ class MovieDetailsScreen: Fragment() {
     }
 
     private fun setupMovieDetails() {
-        binding.bannerImage.load("${ApiConstants.BASE_BACKDROP_PATH}${movie?.backdropPath}") {
+        binding.bannerImage.load("${BuildConfig.BASE_BACKDROP_PATH}${movie?.backdropPath}") {
             crossfade(true)
             placeholder(R.drawable.img_paceholder)
             error(R.drawable.img_error)
         }
 
-        binding.posterImage.load("${ApiConstants.BASE_POSTER_PATH}${movie?.posterPath}") {
+        binding.posterImage.load("${BuildConfig.BASE_POSTER_PATH}${movie?.posterPath}") {
             crossfade(true)
             placeholder(R.drawable.img_paceholder)
             error(R.drawable.img_error)

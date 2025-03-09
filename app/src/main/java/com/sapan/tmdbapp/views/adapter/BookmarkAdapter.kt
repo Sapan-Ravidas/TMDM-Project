@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.sapan.tmdbapp.BuildConfig
 import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.BookmarkItemBinding
 import com.sapan.tmdbapp.models.local.Bookmark
@@ -30,7 +31,7 @@ class BookmarkAdapter(
 
     inner class BookmarkViewHolder(private val binding: BookmarkItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(bookmark: Bookmark) {
-            binding.moviePoster.load("${ApiConstants.BASE_POSTER_PATH}${bookmark.posterPath}") {
+            binding.moviePoster.load("${BuildConfig.BASE_POSTER_PATH}${bookmark.posterPath}") {
                 crossfade(true)
                 placeholder(R.drawable.img_paceholder)
                 error(R.drawable.img_error)

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.sapan.tmdbapp.BuildConfig
 import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.CardMovieBinding
 import com.sapan.tmdbapp.models.local.Movie
@@ -39,7 +40,7 @@ class MovieListAdapter(
 
     inner class MovieViewHolder(private val binding: CardMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie, isBookmarked: Boolean) {
-            binding.moviePoster.load("${ApiConstants.BASE_POSTER_PATH}${movie.posterPath}") {
+            binding.moviePoster.load("${BuildConfig.BASE_POSTER_PATH}${movie.posterPath}") {
                 crossfade(true)
                 placeholder(R.drawable.img_paceholder)
                 error(R.drawable.img_error)
