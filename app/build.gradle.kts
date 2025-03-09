@@ -91,5 +91,5 @@ dependencies {
 
     //coil
     implementation("io.coil-kt:coil:2.3.0")
-    implementation("com.github.smarteist:autoimageslider:1.4.0")
+   //  implementation("com.github.smarteist:autoimageslider:1.4.0")
 }

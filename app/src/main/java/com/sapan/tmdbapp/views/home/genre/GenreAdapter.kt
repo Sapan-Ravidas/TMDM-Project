@@ -1,25 +1,43 @@
 package com.sapan.tmdbapp.views.home.genre
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
+import com.sapan.tmdbapp.databinding.GenreCardBinding
+import com.sapan.tmdbapp.models.GenreData
 
 class GenreAdapter(
 
-): RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
+): ListAdapter<GenreData, GenreAdapter.GenreViewHolder>(GenreDiffCallback()) {
 
-    class GenreViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView)
+    class GenreViewHolder(val binding: GenreCardBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(genre: GenreData) {
+            binding.genreText.text = genre.name
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
-        TODO("Not yet implemented")
+        val binding = GenreCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return GenreViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(getItem(position))
+
+    }
+
+    class GenreDiffCallback : DiffUtil.ItemCallback<GenreData>() {
+        override fun areItemsTheSame(oldItem: GenreData, newItem: GenreData): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: GenreData, newItem: GenreData): Boolean {
+            return oldItem == newItem
+        }
     }
 }
