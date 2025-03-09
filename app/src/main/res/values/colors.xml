@@ -20,4 +20,7 @@
     <color name="background">#FFF8F8F8</color>
     <color name="backgroundVariant">#FFEDEDED</color>
     <color name="onBackdrop">#FFFFFFFF</color>
+
+    <color name="red">#ff0000</color>
+    <color name="gold">#FFAA1D</color>
 </resources>

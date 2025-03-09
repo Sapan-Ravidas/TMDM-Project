@@ -100,4 +100,22 @@ class MovieRepository(
     fun getAllBookmarks(): Flow<List<Bookmark>> {
         return movieDao.getAllBookmarks()
     }
+
+    /**
+     *
+     */
+    fun searchMovies(query: String): Flow<List<Movie>> = flow {
+        try {
+            val response: Response<MovieListData> = remoteService.searchMovies(query)
+            if (response.isSuccessful) {
+                val searchResults = response.body()?.results ?: emptyList()
+                emit(dataConverter.mapToDomain(response.body()!!, "search"))
+            } else {
+                emit(emptyList())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(emptyList())
+        }
+    }
 }

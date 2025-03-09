@@ -1,6 +1,7 @@
 package com.sapan.tmdbapp.views
 
 import android.os.Bundle
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.sapan.tmdbapp.R
 import com.sapan.tmdbapp.databinding.ActivityMainBinding
@@ -35,8 +36,35 @@ class MainActivity: AppCompatActivity() {
             }
         }
 
+        setupSearchView()
+
         supportFragmentManager.beginTransaction()
             .replace(binding.container.id, HomeScreen.newInstance())
+            .commit()
+    }
+
+    private fun setupSearchView() {
+        binding.searchbar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    navigateToSearchFragment(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    navigateToSearchFragment(newText)
+                }
+                return true
+            }
+        })
+    }
+
+    private fun navigateToSearchFragment(query: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, SearchScreen.newInstance(query))
+            .addToBackStack(null)
             .commit()
     }
 }

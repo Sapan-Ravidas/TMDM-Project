@@ -1,5 +1,6 @@
 package com.sapan.tmdbapp.models
 
+import com.sapan.tmdbapp.models.local.Bookmark
 import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.models.remote.MovieListData
 
@@ -24,6 +25,24 @@ class MovieDataConverter : DataConverter<List<Movie>, MovieListData> {
                 category = category
             )
         } ?: emptyList()
+    }
+
+    override fun mapToBookmark(movie: Movie): Bookmark {
+        return Bookmark(
+            id = movie.id,
+            backdropPath = movie.backdropPath,
+            genreIds = movie.genreIds,
+            originalLanguage = movie.originalLanguage,
+            originalTitle = movie.originalTitle,
+            overview = movie.overview,
+            popularity = movie.popularity,
+            posterPath = movie.posterPath,
+            releaseDate = movie.releaseDate,
+            title = movie.title,
+            voteAverage = movie.voteAverage,
+            voteCount = movie.voteCount,
+            video = movie.video
+        )
     }
 
     private fun formatEmptyValue(value: String?, default: String = ""): String {

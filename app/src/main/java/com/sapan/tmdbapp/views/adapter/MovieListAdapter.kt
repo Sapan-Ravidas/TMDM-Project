@@ -12,7 +12,7 @@ import com.sapan.tmdbapp.models.local.Movie
 import com.sapan.tmdbapp.network.ApiConstants
 
 class MovieListAdapter(
-    private val onBookmarkClick: (Movie) -> Unit
+    private val onBookmarkClick: (Movie, Boolean) -> Unit
 ) : ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -34,11 +34,25 @@ class MovieListAdapter(
             }
 
             binding.rating.text = movie.voteAverage.toString()
+            val isBookmarked = false
             binding.bookmark.setOnClickListener {
-                onBookmarkClick(movie)
+                val newBookmarkState = !isBookmarked
+                updateBookmarkButton(newBookmarkState)
+                onBookmarkClick(movie, newBookmarkState)
+            }
+        }
+
+        private fun updateBookmarkButton(isBookmarked: Boolean) {
+            if (isBookmarked) {
+                binding.bookmark.setColorFilter(itemView.context.getColor(R.color.red))
+                binding.bookmark.elevation = 8f
+            } else {
+                binding.bookmark.setColorFilter(itemView.context.getColor(R.color.white))
+                binding.bookmark.elevation = 0f
             }
         }
     }
+
 
     class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {

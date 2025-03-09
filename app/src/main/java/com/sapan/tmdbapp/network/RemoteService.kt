@@ -19,4 +19,11 @@ interface RemoteService {
         @Path("category") category: String,
         @Query("api_key") apiKey: String = ApiConstants.API_KEY
     ) : Response<MovieListData>
+
+    @GET("search/movie")
+    suspend fun searchMovies(
+        @Query("query") query: String,
+        @Query("page") page: Int = 1,
+        @Query("api_key") apiKey: String = ApiConstants.API_KEY
+    ): Response<MovieListData>
 }
