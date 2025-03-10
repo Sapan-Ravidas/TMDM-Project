@@ -18,8 +18,8 @@
 5. Dagger-Hilt
 
 #### APK link
-- [apk](https://drive.google.com/file/d/17LMeXWwE3DVseSME0T_c8vVW3G9TzixI/view?usp=drive_link)
-- [apk](https://drive.google.com/file/d/1otOgL6KzSybnKVKWYxYpXU_K_lS5JotF/view?usp=drive_link)
+- [apk](https://drive.google.com/file/d/1CuJrGImgZ6pBsyHlYXpKIk8cwNcZvWNx/view?usp=drive_link)
+- [apk](https://drive.google.com/file/d/1pcE8NMml7S7Nk75yvCZDjaflRt7XeVGb/view?usp=sharing)
 
 &nbsp;
 
